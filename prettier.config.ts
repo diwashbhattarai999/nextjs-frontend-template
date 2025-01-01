@@ -1,10 +1,3 @@
-Production Level React/Nextjs Code Starter :
-
-1. Initialize project with react : `pnpm create vite . --template react-swc-ts` or nextjs : `pnpm dlx create-next-app@latest .`
-2. Formatting with Prettier : `pnpm add -D prettier prettier-plugin-tailwindcss`
-3. Add to `prettier.config.ts` :
-
-```ts
 module.exports = {
   // Enforces the omission of parentheses in arrow functions when they have a single parameter
   arrowParens: "avoid", // Example: (x) => x -> x => x
@@ -70,6 +63,3 @@ module.exports = {
   // Points to the Tailwind configuration file for Prettier
   tailwindConfig: "./tailwind.config.ts", // Uses the specified Tailwind config for sorting
 };
-```
-
-4.
