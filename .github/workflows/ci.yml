@@ -7,8 +7,8 @@ on:
     branches: [main, development]
 
 jobs:
-  ci:
-    name: Continuous Integration
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       # Checkout repo
@@ -28,7 +28,7 @@ jobs:
           version: 'latest'
 
       # Cache pnpm store
-      - name: Cache pnpm store 📦
+      - name: 📦 Cache pnpm store
         uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
@@ -44,17 +44,133 @@ jobs:
       - name: 🔬 Lint
         run: pnpm run lint
 
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repo
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Setup pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 'latest'
+
+      # Cache pnpm store
+      - name: 📦 Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-
+
+      # Install dependencies
+      - name: 📥 Install dependencies
+        run: pnpm install
+
       # Type check
       - name: 🔎 Type check
         run: pnpm run type-check
+
+  commitlint:
+    name: Commitlint
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
+    steps:
+      # Checkout repo
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Setup pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 'latest'
 
       # Commitlint
       - name: ⚙️ commitlint
         uses: wagoid/commitlint-github-action@v6
 
+  vitest:
+    name: Vitest
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repo
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Setup pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 'latest'
+
+      # Cache pnpm store
+      - name: 📦 Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-
+
+      # Install dependencies
+      - name: 📥 Install dependencies
+        run: pnpm install
+
       # Run Vitest tests
       - name: ⚡ Run vitest
         run: pnpm run test -- --coverage
+
+  playwright:
+    name: Playwright
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repo
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Setup pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 'latest'
+
+      # Cache pnpm store
+      - name: 📦 Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-
+
+      # Install dependencies
+      - name: 📥 Install dependencies
+        run: pnpm install
 
       # Install Playwright Browsers
       - name: 🌐 Install Playwright Browsers
