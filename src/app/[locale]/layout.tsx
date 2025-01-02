@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-// The `metadata` object is used to provide metadata to the client
+/** The `metadata` object is used to provide metadata to the client */
 export const metadata: Metadata = siteConfig;
 
 /**
@@ -43,8 +43,7 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
+  /** Fetch the messages for the current locale to be used by the `NextIntlClientProvider` */
   const messages = await getMessages();
 
   return (

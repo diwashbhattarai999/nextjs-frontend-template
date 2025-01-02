@@ -1,33 +1,49 @@
 'use client';
 
-import type { ChangeEventHandler } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { routing, usePathname } from '@/i18n/routing';
 
+/**
+ * A component that allows the user to switch between locales.
+ * @returns The locale switcher component.
+ */
 export const LocaleSwitcher = () => {
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
 
-  const handleChange: ChangeEventHandler<HTMLSelectElement> = event => {
-    router.push(`/${event.target.value}${pathname}`);
+  // Handle the change event of the select element.
+  const handleChange = (value: string): void => {
+    router.push(`/${value}${pathname}`);
     router.refresh();
   };
 
   return (
-    <select
-      aria-label='lang-switcher'
-      className='bg-gray-500'
-      defaultValue={locale}
-      onChange={handleChange}
-    >
-      {routing.locales.map(locale => (
-        <option key={locale} value={locale}>
-          {locale.toUpperCase()}
-        </option>
-      ))}
-    </select>
+    <Select value={locale} onValueChange={handleChange}>
+      <SelectTrigger className='w-fit'>
+        <SelectValue>{locale.toUpperCase()}</SelectValue>
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Locales</SelectLabel>
+          {routing.locales.map(locale => (
+            <SelectItem key={locale} value={locale}>
+              {locale.toUpperCase()}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   );
 };
