@@ -105,7 +105,6 @@ jobs:
   vitest:
     name: Vitest
     runs-on: ubuntu-latest
-    if: find . -name '*.test.ts' | grep -q . # Only run if test files are present
     steps:
       # Checkout repo
       - name: ⬇️ Checkout repo
@@ -143,7 +142,6 @@ jobs:
   playwright:
     name: Playwright
     runs-on: ubuntu-latest
-    if: find . -name '*.test.ts' | grep -q . # Only run if test files are present
     steps:
       # Checkout repo
       - name: ⬇️ Checkout repo
