@@ -1,16 +1,15 @@
-import eslintConfigPrettier from "eslint-config-prettier";
-import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
-import eslintPluginPrettier from "eslint-plugin-prettier";
-import eslintPluginReact from "eslint-plugin-react";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
-import globals from "globals";
-import { dirname } from "path";
-import typescriptEslint from "typescript-eslint";
-import { fileURLToPath } from "url";
-import eslintJS from "@eslint/js";
+import eslintConfigPrettier from 'eslint-config-prettier';
+import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
+import eslintPluginReact from 'eslint-plugin-react';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import globals from 'globals';
+import { dirname } from 'path';
+import typescriptEslint from 'typescript-eslint';
+import { fileURLToPath } from 'url';
 
-import { FlatCompat } from "@eslint/eslintrc";
-import tsParser from "@typescript-eslint/parser";
+import { FlatCompat } from '@eslint/eslintrc';
+import eslintJS from '@eslint/js';
+import tsParser from '@typescript-eslint/parser';
 
 // Get current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -23,26 +22,26 @@ const compat = new FlatCompat({
 
 /** Base Configuration */
 const baseConfig = {
-  name: "base",
+  name: 'base',
   extends: [eslintJS.configs.recommended],
   rules: {
-    "no-unused-vars": "error",
-    "no-await-in-loop": "error",
-    "no-duplicate-imports": "error",
-    "no-use-before-define": "error",
-    "require-atomic-updates": "error",
+    'no-unused-vars': 'error',
+    'no-await-in-loop': 'error',
+    'no-duplicate-imports': 'error',
+    'no-use-before-define': 'error',
+    'require-atomic-updates': 'error',
   },
 };
 
 /** TypeScript Configuration */
 const typescriptConfig = {
-  name: "typescript",
+  name: 'typescript',
   extends: [...typescriptEslint.configs.recommendedTypeChecked],
   languageOptions: {
     parser: tsParser,
     parserOptions: {
-      ecmaVersion: "latest",
-      project: "./tsconfig.json",
+      ecmaVersion: 'latest',
+      project: './tsconfig.json',
     },
     globals: {
       ...globals.browser,
@@ -50,79 +49,67 @@ const typescriptConfig = {
     },
   },
   rules: {
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/consistent-type-exports": "error",
-    "@typescript-eslint/explicit-member-accessibility": "error",
-    "@typescript-eslint/no-floating-promises": ["error"],
-    "@typescript-eslint/return-await": "error",
-    "@typescript-eslint/no-unsafe-assignment": "warn",
-    "@typescript-eslint/no-unsafe-call": "warn",
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/consistent-type-exports': 'error',
+    '@typescript-eslint/explicit-member-accessibility': 'error',
+    '@typescript-eslint/no-floating-promises': ['error'],
+    '@typescript-eslint/return-await': 'error',
+    '@typescript-eslint/no-unsafe-assignment': 'warn',
+    '@typescript-eslint/no-unsafe-call': 'warn',
   },
 };
 
 /** React Configuration */
 const reactConfig = {
-  name: "react",
-  extends: [eslintPluginReact.configs.flat["jsx-runtime"]],
+  name: 'react',
+  extends: [eslintPluginReact.configs.flat['jsx-runtime']],
   rules: {
-    "react/jsx-boolean-value": "error",
-    "react/jsx-filename-extension": ["error", { extensions: [".jsx", ".tsx"] }],
-    "react/jsx-sort-props": [
-      "error",
-      { callbacksLast: true, shorthandFirst: true, multiline: "last" },
+    'react/jsx-boolean-value': 'error',
+    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
+    'react/jsx-sort-props': [
+      'error',
+      { callbacksLast: true, shorthandFirst: true, multiline: 'last' },
     ],
-    "react-hooks/exhaustive-deps": "warn",
+    'react-hooks/exhaustive-deps': 'warn',
   },
 };
 
 /** JSX A11y Configuration */
 const jsxA11yConfig = {
-  name: "jsx-a11y",
+  name: 'jsx-a11y',
   ...jsxA11yPlugin.flatConfigs.recommended,
-  plugins: { "jsx-a11y": jsxA11yPlugin },
+  plugins: { 'jsx-a11y': jsxA11yPlugin },
   rules: {
-    "jsx-a11y/alt-text": ["error", { img: ["Image"] }],
-    "jsx-a11y/role-has-required-aria-props": "error",
+    'jsx-a11y/alt-text': ['error', { img: ['Image'] }],
+    'jsx-a11y/role-has-required-aria-props': 'error',
   },
 };
 
 /** Import Sort Configuration */
 const importSortConfig = {
-  name: "import-sort",
-  plugins: { "simple-import-sort": simpleImportSort },
+  name: 'import-sort',
+  plugins: { 'simple-import-sort': simpleImportSort },
   rules: {
-    "simple-import-sort/imports": [
-      "error",
+    'simple-import-sort/imports': [
+      'error',
       {
         groups: [
-          ["^react", "^@react", "^next", "^@next"], // React & Nextjs imports
-          ["^\\w"], // Third-party libraries
-          ["^@"], // Imports starting with @
-          ["^\\./"], // Relative imports
-          ["^.+\\.(css|scss)$"], // Style imports
+          ['^react', '^@react', '^next', '^@next'], // React & Nextjs imports
+          ['^\\w'], // Third-party libraries
+          ['^@'], // Imports starting with @
+          ['^\\./'], // Relative imports
+          ['^.+\\.(css|scss)$'], // Style imports
         ],
       },
     ],
-    "simple-import-sort/exports": "error",
-    "import/order": "off", // Avoid conflicts with `simple-import-sort` plugin
-    "sort-imports": "off", // Avoid conflicts with `simple-import-sort` plugin
-  },
-};
-
-/** Prettier Configuration */
-const prettierConfig = {
-  name: "prettier",
-  extends: [eslintConfigPrettier],
-  plugins: {
-    prettier: eslintPluginPrettier,
-  },
-  rules: {
-    "prettier/prettier": "error",
+    'simple-import-sort/exports': 'error',
+    'import/order': 'off', // Avoid conflicts with `simple-import-sort` plugin
+    'sort-imports': 'off', // Avoid conflicts with `simple-import-sort` plugin
   },
 };
 
 /** Next.js Configuration */
-const nextConfig = compat.extends("next/core-web-vitals", "next/typescript");
+const nextConfig = compat.extends('next/core-web-vitals', 'next/typescript');
 
 const eslintConfig = typescriptEslint.config(
   baseConfig,
@@ -130,7 +117,7 @@ const eslintConfig = typescriptEslint.config(
   reactConfig,
   jsxA11yConfig,
   importSortConfig,
-  prettierConfig,
+  eslintConfigPrettier,
   nextConfig
 );
 
