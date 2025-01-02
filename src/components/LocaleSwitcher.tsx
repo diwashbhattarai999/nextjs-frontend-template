@@ -31,7 +31,7 @@ export const LocaleSwitcher = () => {
 
   return (
     <Select value={locale} onValueChange={handleChange}>
-      <SelectTrigger className='w-fit'>
+      <SelectTrigger aria-label='lang-switcher' className='w-fit'>
         <SelectValue>{locale.toUpperCase()}</SelectValue>
       </SelectTrigger>
       <SelectContent>
