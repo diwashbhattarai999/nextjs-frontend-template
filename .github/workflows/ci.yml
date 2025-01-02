@@ -105,6 +105,10 @@ jobs:
   vitest:
     name: Vitest
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' || github.event_name == 'pull_request' && (
+        git diff --name-only HEAD^ HEAD | grep -E 'test/.*\.test\.tsx?$' || git diff --name-only HEAD^ HEAD | grep -E 'test/.*\.spec\.tsx?$'
+      )
     steps:
       # Checkout repo
       - name: ⬇️ Checkout repo
@@ -142,6 +146,10 @@ jobs:
   playwright:
     name: Playwright
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' || github.event_name == 'pull_request' && (
+        git diff --name-only HEAD^ HEAD | grep -E 'test/.*\.test\.tsx?$' || git diff --name-only HEAD^ HEAD | grep -E 'test/.*\.spec\.tsx?$'
+      )
     steps:
       # Checkout repo
       - name: ⬇️ Checkout repo
