@@ -1,5 +1,9 @@
 import { MetadataRoute } from 'next';
 
+/**
+ * The `manifest` function is used for Progessive Web App (PWA) metadata
+ * @returns The metadata object
+ */
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'nextjs-frontend-template',

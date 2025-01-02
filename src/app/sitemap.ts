@@ -2,6 +2,10 @@ import type { MetadataRoute } from 'next';
 
 import { getBaseUrl } from '@/utils/helpers';
 
+/**
+ * The `sitemap` function is used for sitemap.xml metadata used by search engines
+ * @returns The metadata object
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
