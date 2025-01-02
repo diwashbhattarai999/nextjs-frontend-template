@@ -28,9 +28,8 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: TLocales };
+  params: Promise<{ locale: TLocales }>;
 }>) {
-  // eslint-disable-next-line @typescript-eslint/await-thenable
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
