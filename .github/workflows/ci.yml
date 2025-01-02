@@ -46,7 +46,7 @@ jobs:
 
       # Type check
       - name: 🔎 Type check
-        run: pnpm run type-check --if-present
+        run: pnpm run type-check
 
       # Commitlint
       - name: ⚙️ commitlint
