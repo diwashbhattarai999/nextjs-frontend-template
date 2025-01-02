@@ -27,9 +27,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = siteConfig;
 
 /**
- * The `RootLayout` component is a layout component that wraps all of the pages
+ * The `LocaleLayout` component is a layout component that wraps all of the pages
  */
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: Readonly<{
