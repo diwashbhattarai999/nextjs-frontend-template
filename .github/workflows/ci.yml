@@ -19,24 +19,11 @@ jobs:
         with:
           node-version: 20
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 'latest'
-
-      - name: Cache pnpm store 📦
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-store-
-
-      - name: 📥 Install dependencies
-        run: pnpm install
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
 
       - name: 🔬 Lint
-        run: pnpm run lint
+        run: npm run lint
 
   type-check:
     name: ʦ TypeScript
@@ -50,42 +37,25 @@ jobs:
         with:
           node-version: 20
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 'latest'
-
-      - name: Cache pnpm store 📦
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-store-
-
-      - name: 📥 Install dependencies
-        run: pnpm install
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
 
       - name: 🔎 Type check
-        run: pnpm run type-check --if-present
+        run: npm run type-check --if-present
 
   commitlint:
     name: ⚙️ commitlint
     runs-on: ubuntu-latest
+
     if: github.actor != 'dependabot[bot]'
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 'latest'
-
       - name: ⚙️ commitlint
         uses: wagoid/commitlint-github-action@v4
 
@@ -101,24 +71,18 @@ jobs:
         with:
           node-version: 20
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 'latest'
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
 
-      - name: Cache pnpm store 📦
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-store-
-
-      - name: 📥 Install dependencies
-        run: pnpm install
+      - name: 🛠 Setup Database
+        run: npm run prisma:wipe
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: ⚡ Run vitest
-        run: pnpm run test -- --coverage
+        run: npm run test -- --coverage
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
   playwright:
     name: 🎭 Playwright
@@ -132,27 +96,21 @@ jobs:
         with:
           node-version: 20
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 'latest'
-
-      - name: Cache pnpm store 📦
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-store-
-
-      - name: 📥 Install dependencies
-        run: pnpm install
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
 
       - name: 🌐 Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: 🛠 Setup Database
+        run: npm run prisma:wipe
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       - name: 🎭 Playwright Run
         run: npx playwright test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: 📸 Playwright Screenshots
         uses: actions/upload-artifact@v4
