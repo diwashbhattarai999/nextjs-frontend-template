@@ -1,7 +1,26 @@
 {
-  "name": "appwrite-clone",
+  "name": "nextjs-frontend-template",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Fact Digi",
+    "email": "diwashb999@gmail.com"
+  },
+  "keywords": [
+    "nextjs",
+    "frontend",
+    "template",
+    "react",
+    "typescript",
+    "eslint",
+    "prettier",
+    "husky"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diwashbhattarai999/nextjs-frontend-template.git"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
