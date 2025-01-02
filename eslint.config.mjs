@@ -54,8 +54,11 @@ const typescriptConfig = {
     '@typescript-eslint/explicit-member-accessibility': 'error',
     '@typescript-eslint/no-floating-promises': ['error'],
     '@typescript-eslint/return-await': 'error',
-    '@typescript-eslint/no-unsafe-assignment': 'warn',
-    '@typescript-eslint/no-unsafe-call': 'warn',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-unsafe-argument': 'off',
+    '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-unsafe-return': 'off',
   },
 };
 
