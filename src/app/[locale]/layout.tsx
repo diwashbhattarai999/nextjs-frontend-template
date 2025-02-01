@@ -7,6 +7,7 @@ import { getMessages } from 'next-intl/server';
 import { Toaster } from 'sonner';
 
 import TanstackQueryProvider from '@/components/providers/tanstack-provider';
+import { ThemeProvider } from '@/components/providers/theme-provider';
 import { siteConfig } from '@/configs';
 import { routing, TLocales } from '@/i18n/routing';
 
@@ -47,17 +48,23 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html suppressHydrationWarning lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <TanstackQueryProvider>
-            {children}
-
-            <Toaster richColors position='bottom-right' />
-          </TanstackQueryProvider>
-        </NextIntlClientProvider>
+        <ThemeProvider
+          disableTransitionOnChange
+          enableSystem
+          attribute='class'
+          defaultTheme='light'
+        >
+          <NextIntlClientProvider messages={messages}>
+            <TanstackQueryProvider>
+              {children}
+              <Toaster richColors position='bottom-right' />
+            </TanstackQueryProvider>
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
