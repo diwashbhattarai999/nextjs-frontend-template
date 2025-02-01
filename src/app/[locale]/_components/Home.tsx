@@ -54,7 +54,7 @@ export default function Home() {
           </h1>
           <p className='max-w-lg text-lg'>{t('description')}</p>
 
-          <div className='mt-6 flex max-w-4xl flex-wrap justify-center gap-6 bg-opacity-10 p-4'>
+          <div className='bg-opacity-10 mt-6 flex max-w-4xl flex-wrap justify-center gap-6 p-4'>
             {packages.map(pkg => (
               <div
                 className='flex flex-col items-center gap-2 text-center'

@@ -5,13 +5,13 @@ import { Link } from '@/i18n/routing';
 
 export default function NotFound() {
   return (
-    <div className='flex min-h-[100dvh] w-full flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8'>
+    <div className='bg-background flex min-h-[100dvh] w-full flex-col items-center justify-center px-4 py-12 sm:px-6 lg:px-8'>
       <div className='mx-auto max-w-md text-center'>
-        <Search className='mx-auto h-12 w-12 text-accent-foreground' />
-        <h1 className='mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl'>
+        <Search className='text-accent-foreground mx-auto h-12 w-12' />
+        <h1 className='text-foreground mt-4 text-3xl font-bold tracking-tight sm:text-4xl'>
           404 Not Found
         </h1>
-        <p className='mt-4 text-muted-foreground'>
+        <p className='text-muted-foreground mt-4'>
           Sorry, we couldn’t find the page you were looking for. It may have
           been moved or deleted.
         </p>
